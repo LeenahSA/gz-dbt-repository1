@@ -51,5 +51,136 @@ sources:
             tests:
               - unique
               - not_null
+      - name: adwords
+        identifier: raw_gz_adwords
+        description: Contains information related to AdWords campaigns. Each row corresponds to a specific campaign and includes details such as clicks, date, impressions, ads cost, campaign name, campaign key, and paid source.
+        columns:
+        - name: clicks
+          description: The number of clicks received by the campaign.
+        - name: date_date
+          description: The date of the campaign.
+        - name: impression
+          description: The number of impressions received by the campaign.
+        - name: ads_cost
+          description: The cost of the ads for the campaign.
+        - name: camPGN_name
+          description: The name of the campaign.
+        - name: campaign_key
+          description: The unique key identifying the campaign.
+        - name: paid_source
+          description: The source from which the campaign is paid.
+      - name: bing
+        identifier: raw_gz_bing
+        description: The contains information related to shipping costs for orders. Each row corresponds to a specific order and includes details such as the order ID, shipping fee, logistics cost, and shipping cost.
+        columns:
+        - name: date_date
+          description: The date of the order.
+          tests:
+            - not_null
+        - name: paid_source
+          description: The source from which the ad was paid for.
+          tests:
+            - not_null
+        - name: campaign_key
+          description: The key associated with the campaign.
+          tests:
+            - not_null
+        - name: camPGN_name
+          description: The name of the campaign.
+          tests:
+            - not_null
+        - name: ads_cost
+          description: The cost of ads associated with the order.
+        - name: impression
+          description: The number of impressions for the ad.
+        - name: click
+          description: The number of clicks on the ad.
+      - name: criteo
+        identifier: raw_gz_criteo
+        description: The contains information related to shipping costs for orders. Each row corresponds to a specific order and includes details such as the order ID, shipping fee, logistics cost, and shipping cost.
+        columns:
+        - name: date_date
+          description: The date of the order.
+          tests:
+            - not_null
+        - name: paid_source
+          description: The source from which the ad was paid for.
+          tests:
+            - not_null
+        - name: campaign_key
+          description: The key associated with the campaign.
+          tests:
+            - not_null
+        - name: camPGN_name
+          description: The name of the campaign.
+          tests:
+            - not_null
+        - name: ads_cost
+          description: The cost of ads associated with the order.
+        - name: impression
+          description: The number of impressions for the ad.
+        - name: click
+          description: The number of clicks on the ad.
+      - name: facebook
+        identifier: raw_gz_facebook
+        description: The contains information related to shipping costs for orders. Each row corresponds to a specific order and includes details such as the order ID, shipping fee, logistics cost, and shipping cost.
+        columns:
+        - name: date_date
+          description: The date of the order.
+          tests:
+            - not_null
+        - name: paid_source
+          description: The source from which the ad was paid for.
+          tests:
+            - not_null
+        - name: campaign_key
+          description: The key associated with the campaign.
+          tests:
+            - not_null
+        - name: camPGN_name
+          description: The name of the campaign.
+          tests:
+            - not_null
+        - name: ads_cost
+          description: The cost of ads associated with the order.
+        - name: Impression
+          description: The number of impressions for the ad.
+        - name: click
+          description: The number of clicks on the ad.
+models:
+  - name: int_campaign
+    description: data from all campaigns
+    tests:
+      - unique:
+          column_name: "(campaign_key) || '-' || date_date)"
+      - not_null:
+          column_name: 
+            - paid_source
+            - campaign_name
 
+  - name: int_campaign_days
+    description: data from all campaigns based on day
+    tests:
+       - not_null:
+          column_name: 
+            - date_date
+       - unique:
+           column_name: 
+             - date_date
+
+  - name: finance_campaigns_day
+    description: global kpi
+    columns:
+    - name: ads_margin
+      description: operational_margin - ads_cost
+    - name: average_basket
+      description: average basket cost for each day 
+    tests:
+       - not_null:
+          column_name: 
+            - ads_margin
+            - average_basket
+
+       
+                     
 
